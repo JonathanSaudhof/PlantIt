@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+button {
+  padding: 0.5rem;
+  background-color: darkorange;
+  border-radius: 0.2rem;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex: 1 1 10%;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: darkolivegreen;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.1) 10%,
+    rgba(0, 0, 0, 0.1) 90%
+  );
+  box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.3);
+  max-height: 40px;
+  color: #fff;
+  padding: 0 1rem;
+  z-index: 1;
+}
+.menu .name {
+  flex: 1 1 80%;
+}
+
+canvas {
+  flex: 1 1 90%;
+  height: 100%;
+}
+
+.starting-screen {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: darkolivegreen;
+}
+
+.starting-screen.show {
+  display: flex;
+}
+
+.starting-screen .box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 50%;
+  color: white;
+  background-color: olive;
+}
+.starting-screen .box > input,
+.starting-screen .box > button {
+  width: 80%;
+  height: 50px;
+  margin-bottom: 1rem;
+}
+.starting-screen .box > button {
+}
