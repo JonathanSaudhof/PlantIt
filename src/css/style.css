@@ -9,6 +9,9 @@ body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #666;
 }
 
 html,
@@ -52,8 +55,8 @@ button {
 }
 
 canvas {
-  flex: 1 1 90%;
   height: 100%;
+  margin: auto;
 }
 
 .starting-screen {

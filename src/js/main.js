@@ -14,11 +14,6 @@ const inProduction = false;
 // Game
 // new Game Object
 const game = new Game();
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight - $menu.clientHeight);
-}
-
 /* 
   Game Lifecycle:
 
@@ -51,14 +46,14 @@ if (inProduction) {
   $startingScreen.classList.remove('show');
 }
 
+// --- > GAME SETUP AND LOOP
+
 function preload() {
   console.log('PRELOAD');
 }
 
 function setup() {
-  console.log('SETUP');
-
-  createCanvas(windowWidth, windowHeight - $menu.clientHeight);
+  game.init();
   frameRate(17);
   game.setup();
 }
@@ -66,10 +61,13 @@ function setup() {
 function draw() {
   if (gameRunning) {
     console.log('GAMELOOP RUNNING');
+    game.draw();
   }
 
   keyPressed();
 }
+
+// Input Handling
 
 function pause(event) {
   console.log('pause', event);
@@ -88,6 +86,12 @@ function keyPressed() {
   }
 
   //Player 1: Move forward or backward
+
+  if (keyCode === 38) {
+    game.player.move([1, 0]);
+  }
+
+  // orientation (starts with 180, looking down!)
 
   //Player 1: go left or right
 
