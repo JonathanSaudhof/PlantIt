@@ -24,6 +24,8 @@ class World {
 
     imageMode(CENTER);
     // console.log('colW:', colWidth, ',rowH:', rowHeight);
+    push();
+    stroke(0);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
         //upper left corner
@@ -70,6 +72,7 @@ class World {
             col * colWidth + colWidth / 2,
             row * rowHeight + rowHeight / 2,
           );
+          stroke(0);
           image(this.images.inner, 0, 0);
           pop();
         }
@@ -134,5 +137,6 @@ class World {
         }
       }
     }
+    pop();
   }
 }

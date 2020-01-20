@@ -10,10 +10,14 @@ const $pause = document.querySelector('button.pause');
 
 let playersName = 'Test';
 const inProduction = false;
+let multiplayer = false;
 
 // Game
 // new Game Object
 const game = new Game();
+
+//TODO:
+
 /* 
   Game Lifecycle:
 
@@ -62,9 +66,11 @@ function draw() {
   if (gameRunning) {
     console.log('GAMELOOP RUNNING');
     game.draw();
+    singleplayerInputs();
+    if (multiplayer) {
+      multiplayerInputs();
+    }
   }
-
-  keyPressed();
 }
 
 // Input Handling
@@ -77,29 +83,102 @@ function pause(event) {
   } else {
     $pause.innerHTML = 'Pause';
   }
+
+  //TODO: show pause popup
 }
 
+function singleplayerInputs() {
+  // Player 1
+
+  if (keyIsDown(32)) {
+    game.player1.grapOrRelease();
+  }
+
+  //Player 1: Move up or down
+
+  if (keyIsDown(38)) {
+    // move up
+    game.player1.move([0, -1]);
+  }
+  if (keyIsDown(40)) {
+    // move down
+    game.player1.move([0, 1]);
+  }
+  if (keyIsDown(37)) {
+    // move left
+    game.player1.move([-1, 0]);
+  }
+  if (keyIsDown(39)) {
+    // move right
+    game.player1.move([1, 0]);
+  }
+  // Pause
+}
 function keyPressed() {
-  //Player 1: Grap or Release on Space
+  if (keyCode === 80) {
+    // move right
+    pause();
+  }
+}
+
+function multiplayerInputs() {
+  // Player 1
+
+  if (keyIsDown(32)) {
+    game.player1.grapOrRelease();
+  }
+
+  //Player 1: Move up or down
+
+  if (keyIsDown(38)) {
+    // move up
+    game.player1.move([0, -1]);
+  }
+  if (keyIsDown(40)) {
+    // move down
+    game.player1.move([0, 1]);
+  }
+  if (keyIsDown(37)) {
+    // move left
+    game.player1.move([-1, 0]);
+  }
+  if (keyIsDown(39)) {
+    // move right
+    game.player1.move([1, 0]);
+  }
+  // Pause
+  if (keyIsPressed(80)) {
+    // move right
+    pause();
+  }
+
+  // Player 2
+
   if (keyCode === 32) {
     game.player.grapOrRelease();
   }
 
-  //Player 1: Move forward or backward
+  //Player 1: Move up or down
 
-  if (keyCode === 38) {
-    game.player.move([1, 0]);
+  if (keyCode === 79) {
+    // move up
+    game.player2.move([0, -1]);
   }
-
-  // orientation (starts with 180, looking down!)
-
-  //Player 1: go left or right
-
-  //Player 2: Grap or Release on CTRL
-
-  //Player 2: Move forward or backward
-
-  // Player 2: go left or right
-
-  //Pause on P
+  if (keyCode === 76) {
+    // move down
+    game.player2.move([0, 1]);
+  }
+  if (keyCode === 75) {
+    // move left
+    game.player2.move([-1, 0]);
+  }
+  if (keyCode === 186) {
+    // move right
+    game.player2.move([1, 0]);
+  }
+  // Pause
+  if (keyCode === 16) {
+    // move right
+    pause();
+  }
 }

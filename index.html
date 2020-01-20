@@ -11,9 +11,18 @@
   <body>
     <!-- UI Starting-Screen -->
     <div class="starting-screen show">
-      <div class="box">
+      <div class="box" id="player1">
+        <h2 id="box-headline">Play Mode</h2>
+        <button type="button" onclick="createGame(event)" id="create-game-btn"> Single Player</button>
+        <button type="button" onclick="createGame(event)" id="create-game-btn"> Multiplayer </button>
+      </div>
+      <div class="box" id="player1">
         <h2 id="box-headline">Go Farming</h2>
         <input type="text" name="playersName" id="playser-name-input" placeholder="Please type in your name">
+        <label for="character1" class=""><img src="assets/player/farmer-pixilart.png"></label>
+        <input type="radio" name="characterChoice" id="character1" />
+        <label for="character1" class=""><img src="assets/player/farmer-pixilart.png"></label>
+        <input type="radio" name="characterChoice" id="character1" />
         <button type="button" onclick="createGame(event)" id="create-game-btn"> Let's go </button>
       </div>
     </div>
@@ -24,6 +33,8 @@
     <!-- loads p5 libary -->
     <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
     <!-- loads controller -->
+    <script src="src/js/constants.js"></script>
+    <script src="src/js/parts.js"></script>
     <script src="src/js/player.js"></script>
     <script src="src/js/world.js"></script>
     <script src="src/js/game.js"></script>
