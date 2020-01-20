@@ -7,7 +7,7 @@ class Game {
     this.multiplayer = false;
     //Duration of a Game in Seconds 5 * 60
     this.duration = 300;
-    this.fields = [];
+    this.parts = [];
   }
 
   init() {
@@ -19,18 +19,18 @@ class Game {
     this.player1 = new Player(); // add player character and Name
 
     if (this.multiplayer) {
-      console.log('player2');
       this.player2 = new Player(); // add player character and Name
     }
 
-    this.fields[0] = new Field(5, 5);
-    this.fields[1] = new Field(8, 5);
-    this.stock = new Stock(1, 2);
+    this.parts[0] = new Field(5, 5);
+    this.parts[1] = new Field(8, 5);
+    this.parts[2] = new Stock(1, 2);
   }
 
   setup() {
     console.log('Setup');
     angleMode(DEGREES);
+    rectMode(CENTER);
   }
 
   draw() {
@@ -39,9 +39,9 @@ class Game {
     if (this.multiplayer) {
       this.player2.draw();
     }
-    this.fields[0].draw();
-    this.fields[1].draw();
-    this.stock.draw();
+    this.parts[0].draw();
+    this.parts[1].draw();
+    this.parts[2].draw();
     this.player1.draw();
   }
 }

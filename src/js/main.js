@@ -64,7 +64,7 @@ function setup() {
 
 function draw() {
   if (gameRunning) {
-    console.log('GAMELOOP RUNNING');
+    // console.log('GAMELOOP RUNNING');
     game.draw();
     singleplayerInputs();
     if (multiplayer) {
