@@ -90,12 +90,6 @@ function pause(event) {
 function singleplayerInputs() {
   // Player 1
 
-  if (keyIsDown(32)) {
-    game.player1.grapOrRelease();
-  }
-
-  //Player 1: Move up or down
-
   if (keyIsDown(38)) {
     // move up
     game.player1.move([0, -1]);
@@ -118,6 +112,10 @@ function keyPressed() {
   if (keyCode === 80) {
     // move right
     pause();
+  }
+
+  if (keyCode === 32) {
+    game.player1.grapOrRelease();
   }
 }
 

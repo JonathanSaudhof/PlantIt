@@ -1,51 +1,79 @@
 class Player {
-  constructor() {
+  constructor(posX = 25, posY = 25) {
     console.log('Player Constructor');
     this.img = {
-      down: loadImage('assets/player/farmer-pixilart.png'),
+      down: [
+        loadImage('assets/player/farmer-down.png'),
+        loadImage('assets/player/farmer-down-c.png'),
+      ],
     };
-    this._activeImg = this.img.down;
-    this._posX = 50;
-    this._posY = 50;
+    this._activeImage = this.img.down;
+    this._posX = posX;
+    this._posY = posY;
+    this.direction = 'down';
     this._speed = 10;
+    this.scale = 1.5;
+    this._inventory = null;
   }
 
   grapOrRelease() {
     game.parts.forEach((part) => {
-      console.log(
-        'parts',
-        part._posX - part._activeImage.width,
-        part._posY - part._activeImage.height,
-      );
+      if (this.collides(part)) {
+        // if the player's inventory is empty --> call part.pickUp --> else part.recieve
+        console.log(part);
+        // call pickUp
+        if (!this._inventory) {
+          this._inventory = part.withdraw();
+        } else {
+          part.deposit(this._inventory);
+          this._inventory = null;
+        }
+        // put a item into the inventory depending on the field you are standing on
+      }
     });
-    // check if player is on a field || stock or sth else
-
-    //current position (center )
-
-    // if yes: call the objects get inventory by passing the player
   }
 
   draw() {
     push();
-    image(this.img.down, this._posX, this._posY);
+    this.activeImage = !this._inventory
+      ? this.img[this.direction][0]
+      : this.img[this.direction][1];
+    image(
+      this.activeImage,
+      this._posX,
+      this._posY,
+      this.activeImage.width * this.scale,
+      this.activeImage.height * this.scale,
+    );
     pop();
   }
 
   collides(part) {
     // check if obj collides with self
     // self completely to the left || self completely to the right
-    if (this.x + this.width < obj.x || obj.x + obj.width < this.x) {
-      return false;
-    }
-    // self completely to the top || self completely to the bottom
-    if (this.y + this.height < obj.y || obj.y + obj.height < this.y) {
-      return false;
-    }
+    // [[x0, x1],[y0, y1]]
+    let partCor = [
+      [
+        part.posX - (part.activeImage.width * part.scale || 1) / 2,
+        part.posX + (part.activeImage.width * part.scale || 1) / 2,
+      ],
+      [
+        part.posY - (part.activeImage.height * part.scale || 1) / 2,
+        part.posY + (part.activeImage.height * part.scale || 1) / 2,
+      ],
+    ];
+    // [[x0, x1],[y0, y1]]
 
-    // collision detected -> we can play the sound
-    game.coinSound.play();
-
-    return true;
+    if (
+      this._posX > partCor[0][1] ||
+      this._posX < partCor[0][0] ||
+      this._posY > partCor[1][1] ||
+      this._posY < partCor[1][0]
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   move(direction) {
