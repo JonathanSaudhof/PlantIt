@@ -1,6 +1,6 @@
 class Player {
   constructor(posX = 25, posY = 25) {
-    console.log('Player Constructor');
+    // console.log('Player Constructor');
     this.img = {
       down: [
         loadImage('assets/player/farmer-down.png'),
@@ -20,13 +20,12 @@ class Player {
     game.parts.forEach((part) => {
       if (this.collides(part)) {
         // if the player's inventory is empty --> call part.pickUp --> else part.recieve
-        console.log(part);
+
         // call pickUp
         if (!this._inventory) {
           this._inventory = part.withdraw();
         } else {
-          part.deposit(this._inventory);
-          this._inventory = null;
+          this._inventory = part.deposit(this._inventory);
         }
         // put a item into the inventory depending on the field you are standing on
       }
@@ -53,7 +52,7 @@ class Player {
     // self completely to the left || self completely to the right
     // [[x0, x1],[y0, y1]]
 
-    console.log(part);
+    // console.log(part);
     let partCor = [
       [
         part.posX - (part.activeImage.width * part.scale || 1) / 2,
@@ -83,6 +82,6 @@ class Player {
 
     this._posY += this._speed * direction[1];
     this._posX += this._speed * direction[0];
-    console.log('move');
+    // console.log('move');
   }
 }

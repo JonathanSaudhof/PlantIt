@@ -6,6 +6,37 @@ class Parts {
     this.type = type; // e.g. "Tomato"
     this.inventory = 0;
     this.scale = scaleIt;
+    this.acceptedProducts = [];
+  }
+
+  withdraw() {
+    // if something is in the inventory
+
+    if (this.inventory === 1) {
+      this.inventory = 0;
+      return {
+        category: this.product,
+        type: this.type,
+        amount: 1,
+      };
+    }
+  }
+
+  deposit(item) {
+    if (this.gatekeeper(item) && this.inventory == 0) {
+      console.log('item accepted');
+      this.inventory = 0.25;
+      this.type = item.type;
+      return null;
+    }
+    console.log('item forbidden');
+    return item;
+  }
+
+  gatekeeper(item) {
+    if (this.acceptedProducts.length === 0 || !item) return false;
+    console.log(item, this.acceptedProducts);
+    return this.acceptedProducts.includes(item.category);
   }
 
   draw() {
@@ -24,14 +55,13 @@ class Parts {
 }
 
 class Shop extends Parts {
-  constructor() {
-    super();
+  constructor(posX, posY, scale) {
+    super(posX, posY, scale);
     /*
     - just receives things no withdraw()
-    
-    
-    
     */
+    this.activeImage = loadImage('assets/parts/shop-animated.gif');
+    this.acceptedProducts = ['Fruit', 'Product'];
   }
 
   draw() {
@@ -53,36 +83,18 @@ class Stock extends Parts {
   }
 
   reload() {
-    // automatically reloads the seeeds, stock
-    // wenn das inventory leer ist (=0) und reloading nicht aktiv ist
     if (this.inventory === 0 && this.isReloading === false) {
       this.isReloading = true;
-      // four timeouts for 15 seconds , 30 seconds, 45 seconds,  60 seconds
-      // always increase inventory by 0.25
 
       for (let counter = 1; counter <= 4; counter++) {
         setTimeout(() => {
           this.inventory += 0.25;
-          console.log(this.inventory);
         }, (this.reloadTime / 4) * counter * 1000);
       }
     }
     //
     if (this.inventory === 1 && this.isReloading) {
       this.isReloading = false;
-    }
-  }
-
-  withdraw() {
-    // if something is in the inventory
-
-    if (this.inventory === 1) {
-      this.inventory = 0;
-      return {
-        category: this.product,
-        type: this.type,
-        amount: 1,
-      };
     }
   }
 
@@ -110,36 +122,26 @@ class Field extends Parts {
     };
     this.activeImage = this.img;
     this.isGrowing = false;
+    this.acceptedProducts = ['Seed'];
     this.growTime = 20;
     this.progress = 0;
-  }
-
-  deposit(item) {
-    console.log(item);
-    if (item.category === 'Seed' && this.inventory == 0) {
-      console.log('item accepted');
-      this.inventory = 0.25;
-      this.type = item.type;
-      return true;
-    }
-    return false;
   }
 
   grow() {
     if (this.inventory === 0.25 && this.isGrowing === false) {
       this.isGrowing = true;
-      console.log('starts to grow');
-      console.log(this.inventory === 0.25, this.isGrowing === false);
+      // console.log('starts to grow');
+      // console.log(this.inventory === 0.25, this.isGrowing === false);
       for (let counter = 1; counter <= 3; counter++) {
         setTimeout(() => {
           this.inventory += 0.25;
-          console.log(this.inventory);
+          // console.log(this.inventory);
         }, (this.growTime / 3) * counter * 1000);
       }
     }
     //
     if (this.inventory === 1 && this.isGrowing === true) {
-      console.log('stop growing');
+      // console.log('stop growing');
       this.isGrowing = false;
     }
   }
