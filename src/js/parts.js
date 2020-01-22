@@ -1,17 +1,48 @@
 class Parts {
-  constructor(col, row, product) {
+  constructor(col, row, scaleIt = 1, product, type = '') {
     this.posX = col * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.posY = row * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.product = product;
+    this.type = type; // e.g. "Tomato"
     this.inventory = 0;
+    this.scale = scaleIt;
+  }
+
+  draw() {
+    push();
+    translate(this.posX, this.posY);
+    // TODO Add global scale
+    image(
+      this.activeImage,
+      0,
+      0,
+      this.activeImage.width * this.scale,
+      this.activeImage.height * this.scale,
+    );
+    pop();
+  }
+}
+
+class Shop extends Parts {
+  constructor() {
+    super();
+    /*
+    - just receives things no withdraw()
+    
+    
+    
+    */
+  }
+
+  draw() {
+    super.draw();
   }
 }
 
 class Stock extends Parts {
   constructor(col, row, type = 'plain') {
-    super(col, row, 'Seed');
+    super(col, row, 1.5, 'Seed', type);
 
-    this.type = type; // e.g. "Tomato"
     this.img = {
       empty: loadImage(`assets/parts/seed-stock-${type}-empty.png`),
       full: loadImage(`assets/parts/seed-stock-${type}-full.png`),
@@ -19,7 +50,6 @@ class Stock extends Parts {
     this.activeImage = this.img.empty;
     this.reloadTime = 2; // in seconds
     this.isReloading = false;
-    this.scale = 1.5;
   }
 
   reload() {
@@ -57,32 +87,20 @@ class Stock extends Parts {
   }
 
   draw() {
-    push();
-    // scale(2);
-    translate(this.posX, this.posY);
     if (this.inventory < 1) {
       this.activeImage = this.img.empty;
     } else {
       this.activeImage = this.img.full;
     }
-
-    image(
-      this.activeImage,
-      0,
-      0,
-      this.activeImage.width * this.scale,
-      this.activeImage.height * this.scale,
-    );
-
-    pop();
+    super.draw();
     this.reload();
   }
 }
 
 class Field extends Parts {
   constructor(col, row) {
-    super(col, row, 'Fruit');
-    this.type = '';
+    super(col, row, 2, 'Fruit');
+
     this.img = {
       0: loadImage('assets/parts/field-empty.png'),
       0.25: loadImage('assets/parts/field-25.png'),
@@ -94,7 +112,6 @@ class Field extends Parts {
     this.isGrowing = false;
     this.growTime = 20;
     this.progress = 0;
-    this.scale = 3;
   }
 
   deposit(item) {
@@ -129,17 +146,8 @@ class Field extends Parts {
   // if there is something on a field. Than let it grow until it is ready
 
   draw() {
-    push();
-    translate(this.posX, this.posY);
     this.grow();
     this.activeImage = this.img[this.inventory];
-    image(
-      this.activeImage,
-      0,
-      0,
-      this.activeImage.width * this.scale,
-      this.activeImage.height * this.scale,
-    );
-    pop();
+    super.draw();
   }
 }

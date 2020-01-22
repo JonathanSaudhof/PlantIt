@@ -52,6 +52,8 @@ class Player {
     // check if obj collides with self
     // self completely to the left || self completely to the right
     // [[x0, x1],[y0, y1]]
+
+    console.log(part);
     let partCor = [
       [
         part.posX - (part.activeImage.width * part.scale || 1) / 2,
