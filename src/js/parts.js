@@ -4,7 +4,11 @@ class Parts {
     this.posY = row * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.product = product;
     this.type = type; // e.g. "Tomato"
-    this.inventory = 0;
+    this.inventory = {
+      product: this.product,
+      type: this.type,
+      amount: 0,
+    };
     this.scale = scaleIt;
     this.acceptedProducts = [];
   }
@@ -12,8 +16,8 @@ class Parts {
   withdraw() {
     // if something is in the inventory
 
-    if (this.inventory === 1) {
-      this.inventory = 0;
+    if (this.inventory.amount === 1) {
+      this.inventory.amount = 0;
       return {
         category: this.product,
         type: this.type,
@@ -23,9 +27,13 @@ class Parts {
   }
 
   deposit(item) {
-    if (this.gatekeeper(item) && this.inventory == 0) {
-      console.log('item accepted');
-      this.inventory = 0.25;
+    if (this.gatekeeper(item) && this.inventory.amount == 0) {
+      console.log('item accepted', item);
+      this.inventory = {
+        category: this.product,
+        type: item.type,
+        amount: 0.25,
+      };
       this.type = item.type;
       return null;
     }
@@ -63,9 +71,14 @@ class Shop extends Parts {
     this.activeImage = loadImage('assets/parts/shop-animated.gif');
     this.acceptedProducts = ['Fruit', 'Product'];
   }
+  scored() {
+    if (this.inventory) {
+    }
+  }
 
   draw() {
     super.draw();
+    this.scored();
   }
 }
 
@@ -83,23 +96,23 @@ class Stock extends Parts {
   }
 
   reload() {
-    if (this.inventory === 0 && this.isReloading === false) {
+    if (this.inventory.amount === 0 && this.isReloading === false) {
       this.isReloading = true;
 
       for (let counter = 1; counter <= 4; counter++) {
         setTimeout(() => {
-          this.inventory += 0.25;
+          this.inventory.amount += 0.25;
         }, (this.reloadTime / 4) * counter * 1000);
       }
     }
     //
-    if (this.inventory === 1 && this.isReloading) {
+    if (this.inventory.amount === 1 && this.isReloading) {
       this.isReloading = false;
     }
   }
 
   draw() {
-    if (this.inventory < 1) {
+    if (this.inventory.amount < 1) {
       this.activeImage = this.img.empty;
     } else {
       this.activeImage = this.img.full;
@@ -120,7 +133,7 @@ class Field extends Parts {
       0.75: loadImage('assets/parts/field-75.png'),
       1: loadImage('assets/parts/field-empty.png'),
     };
-    this.activeImage = this.img;
+    this.activeImage = this.img[0];
     this.isGrowing = false;
     this.acceptedProducts = ['Seed'];
     this.growTime = 20;
@@ -128,19 +141,19 @@ class Field extends Parts {
   }
 
   grow() {
-    if (this.inventory === 0.25 && this.isGrowing === false) {
+    if (this.inventory.amount === 0.25 && this.isGrowing === false) {
       this.isGrowing = true;
       // console.log('starts to grow');
-      // console.log(this.inventory === 0.25, this.isGrowing === false);
+      // console.log(this.inventory.amount === 0.25, this.isGrowing === false);
       for (let counter = 1; counter <= 3; counter++) {
         setTimeout(() => {
-          this.inventory += 0.25;
-          // console.log(this.inventory);
+          this.inventory.amount += 0.25;
+          // console.log(this.inventory.amount);
         }, (this.growTime / 3) * counter * 1000);
       }
     }
     //
-    if (this.inventory === 1 && this.isGrowing === true) {
+    if (this.inventory.amount === 1 && this.isGrowing === true) {
       // console.log('stop growing');
       this.isGrowing = false;
     }
@@ -149,7 +162,7 @@ class Field extends Parts {
 
   draw() {
     this.grow();
-    this.activeImage = this.img[this.inventory];
+    this.activeImage = this.img[this.inventory.amount];
     super.draw();
   }
 }

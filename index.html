@@ -27,11 +27,23 @@
       </div>
     </div>
     <!-- UI Menu (see if needed) -->
-    <div class="menu" ><div class="name"></div><button class="pause" type="button" onclick="pause()">Pause</button></div>
+    <div class="menu" >
+      <div class="name"></div>
+      <button class="pause" type="button" onclick="pause()">Pause</button>
+    </div>
+    <gameMen>
+      <queue>
+       
+      </queue>
+      <score>Score: 0</score>
+      <time class="blinking-slow ">Time: 0:00</time>
+    </gameMen>
+    
     <!-- Game is displayed here-->
   
     <!-- loads p5 libary -->
     <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+    <script src="http://blizardjs.ueuo.com/blizard.js"></script>
     <!-- loads controller -->
     <script src="src/js/constants.js"></script>
     <script src="src/js/parts.js"></script>

@@ -6,12 +6,22 @@ class Game {
     this.player2Name = 'Player2'; // TODO: Has to be set from outside (UI)
     this.multiplayer = false;
     //Duration of a Game in Seconds 5 * 60
-    this.duration = 300;
+    this.duration = 300; // how many time for the whole game
     this.parts = [];
+    this.cols = 20;
+    this.rows = 10;
+    this.queueItemList = [
+      {
+        id: 1,
+        name: 'tomato',
+        ingredients: [{ product: 'Seed', type: 'tomato' }],
+        timeLeft: 60,
+      },
+    ];
   }
 
   init() {
-    createCanvas(20 * SQUARE_SIZE, 10 * SQUARE_SIZE);
+    createCanvas(this.cols * SQUARE_SIZE, this.rows * SQUARE_SIZE);
 
     // TODO What if the parts are out of the canvas
 
@@ -34,6 +44,24 @@ class Game {
     rectMode(CENTER);
   }
 
+  countDown() {}
+
+  createOrder() {
+    //every 30s a Queueitem is randomly created
+  }
+  drawQueue() {
+    this.queueItemList.forEach((item) => {
+      if (!document.getElementById(item.id.toString())) {
+        const newItem = document.createElement('item');
+        newItem.id = item.id;
+        newItem.innerHTML = `<img src="assets/products/${item.name}.png`;
+        document.querySelector('queue').appendChild(newItem);
+      }
+    });
+  }
+
+  drawTime() {}
+
   draw() {
     this.world.drawWorld();
 
@@ -41,7 +69,7 @@ class Game {
       this.player2.draw();
     }
     this.parts.forEach((part) => part.draw());
-
+    this.drawQueue();
     this.player1.draw();
   }
 }

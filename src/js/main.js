@@ -58,7 +58,7 @@ function preload() {
 
 function setup() {
   game.init();
-  frameRate(17);
+  frameRate(10);
   game.setup();
 }
 
