@@ -70,9 +70,28 @@ class Shop extends Parts {
     */
     this.activeImage = loadImage('assets/parts/shop-animated.gif');
     this.acceptedProducts = ['Fruit', 'Product'];
+    this.inventory = [];
   }
+
+  deposit(item) {
+    if (this.gatekeeper(item) && this.inventory.length === 0) {
+      this.inventory.push({
+        category: item.product,
+        type: item.type,
+        amount: 1,
+      });
+      return null;
+    }
+
+    return item;
+  }
+
   scored() {
     if (this.inventory) {
+      this.inventory.forEach((item) => {});
+      game.queueItemList.forEach((item) => {
+        item.name = this.inventory.product;
+      });
     }
   }
 
@@ -87,9 +106,10 @@ class Stock extends Parts {
     super(col, row, 1.5, 'Seed', type);
 
     this.img = {
-      empty: loadImage(`assets/parts/seed-stock-${type}-empty.png`),
-      full: loadImage(`assets/parts/seed-stock-${type}-full.png`),
+      empty: loadImage(`assets/parts/seed-stock-plain-empty.png`),
+      full: loadImage(`assets/parts/seed-stock-plain-full.png`),
     };
+    this.imgTop = loadImage(`assets/products/${type}.png`);
     this.activeImage = this.img.empty;
     this.reloadTime = 2; // in seconds
     this.isReloading = false;
@@ -117,7 +137,9 @@ class Stock extends Parts {
     } else {
       this.activeImage = this.img.full;
     }
+
     super.draw();
+    image(this.imgTop, this.posX + 10, this.posY, 16, 16);
     this.reload();
   }
 }
@@ -134,6 +156,7 @@ class Field extends Parts {
       1: loadImage('assets/parts/field-empty.png'),
     };
     this.activeImage = this.img[0];
+
     this.isGrowing = false;
     this.acceptedProducts = ['Seed'];
     this.growTime = 20;
@@ -155,6 +178,8 @@ class Field extends Parts {
     //
     if (this.inventory.amount === 1 && this.isGrowing === true) {
       // console.log('stop growing');
+      this.imgTop =
+        loadImage(`assets/products/${this.inventory.type}.png`) || '';
       this.isGrowing = false;
     }
   }
@@ -164,5 +189,10 @@ class Field extends Parts {
     this.grow();
     this.activeImage = this.img[this.inventory.amount];
     super.draw();
+    if (this.imgTop && this.inventory.amount === 1) {
+      fill(color(255, 255, 255));
+      rect(this.posX, this.posY, 50, 50);
+      image(this.imgTop, this.posX, this.posY);
+    }
   }
 }

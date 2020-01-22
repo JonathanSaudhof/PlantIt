@@ -34,7 +34,7 @@ class Game {
 
     this.parts[0] = new Field(5, 5);
     this.parts[1] = new Field(8, 5);
-    this.parts[2] = new Stock(1, 2);
+    this.parts[2] = new Stock(1, 2, 'tomato');
     this.parts[3] = new Shop(18, 5, 2);
   }
 
