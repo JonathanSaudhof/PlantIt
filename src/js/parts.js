@@ -1,5 +1,7 @@
+
+
 class Parts {
-  constructor(col, row, scaleIt = 1, product, type = '') {
+  constructor(col, row, scaleIt = 1, product = 'default', type = '') {
     this.posX = col * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.posY = row * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.product = product;
@@ -19,7 +21,7 @@ class Parts {
     if (this.inventory.amount === 1) {
       this.inventory.amount = 0;
       return {
-        category: this.product,
+        product: this.product,
         type: this.type,
         amount: 1,
       };
@@ -30,7 +32,7 @@ class Parts {
     if (this.gatekeeper(item) && this.inventory.amount == 0) {
       console.log('item accepted', item);
       this.inventory = {
-        category: this.product,
+        product: this.product,
         type: item.type,
         amount: 0.25,
       };
@@ -44,7 +46,7 @@ class Parts {
   gatekeeper(item) {
     if (this.acceptedProducts.length === 0 || !item) return false;
     console.log(item, this.acceptedProducts);
-    return this.acceptedProducts.includes(item.category);
+    return this.acceptedProducts.includes(`${item.product}`);
   }
 
   draw() {
@@ -69,14 +71,14 @@ class Shop extends Parts {
     - just receives things no withdraw()
     */
     this.activeImage = loadImage('assets/parts/shop-animated.gif');
-    this.acceptedProducts = ['Fruit', 'Product'];
+    this.acceptedProducts = ['fruit', 'cooked', 'product'];
     this.inventory = [];
   }
 
   deposit(item) {
     if (this.gatekeeper(item) && this.inventory.length === 0) {
       this.inventory.push({
-        category: item.product,
+        product: item.product,
         type: item.type,
         amount: 1,
       });
@@ -98,6 +100,61 @@ class Shop extends Parts {
   draw() {
     super.draw();
     this.scored();
+  }
+}
+
+
+
+class Processor extends Parts {
+  constructor(name, col, row, type) {
+    super(col, row, 1.5, type);
+    this.name = name;
+    this.product = processorData[this.name].product;
+    this.img = {
+      0: loadImage(`assets/parts/${name}-empty.png`),
+      1: loadImage(`assets/parts/${name}-1.png`),
+      2: loadImage(`assets/parts/${name}-2.png`),
+      3: loadImage(`assets/parts/${name}-active.gif`),
+    };
+    this.activeImage = this.img.empty;
+    this.inventoryMax = processorData[this.name].inventoryMax;
+    this.processTime = processorData[this.name].processTime;
+    this.acceptedProducts = processorData[this.name].acceptedProducts;
+    this.isProcessing = 0;
+    
+  }
+  // deposits just the same items once
+  
+
+  process() {
+    if (this.inventory.amount === 0.25 && this.isProcessing) {
+      this.isProcessing = true;
+      this.activeImage = this.img.active;
+      // console.log('starts to grow');
+      // console.log(this.inventory.amount === 0.25, this.isProcessing === false);
+      for (let counter = 1; counter <= 3; counter++) {
+        setTimeout(() => {
+          this.isProcessing += 1;
+          // console.log(this.inventory.amount);
+        }, (this.processTime / 3) * counter * 1000);
+      }
+    }
+    //
+    if (this.inventory.amount === this. && this.isProcessing === true) {
+      // console.log('stop growing');
+      this.imgTop =
+        loadImage(
+          `assets/products/${this.product}-${this.inventory.type}.png`,
+        ) || '';
+      this.isProcessing = false;
+      this.activeImage = this.img.empty;
+    }
+  }
+
+  draw() {
+    this.activeImage = this.img[this.inventory.amount];
+    super.draw();
+    this.process();
   }
 }
 
@@ -146,7 +203,7 @@ class Stock extends Parts {
 
 class Field extends Parts {
   constructor(col, row) {
-    super(col, row, 2, 'Fruit');
+    super(col, row, 2, 'fruit');
 
     this.img = {
       0: loadImage('assets/parts/field-empty.png'),
@@ -159,7 +216,7 @@ class Field extends Parts {
 
     this.isGrowing = false;
     this.acceptedProducts = ['Seed'];
-    this.growTime = 20;
+    this.growTime = 2;
     this.progress = 0;
   }
 

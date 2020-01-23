@@ -8,12 +8,12 @@ class Player {
       ],
     };
     this._activeImage = this.img.down;
-    this._posX = posX;
-    this._posY = posY;
+    this.posX = posX;
+    this.posY = posY;
     this.direction = 'down';
-    this._speed = 10;
+    this.speed = 10;
     this.scale = 1.5;
-    this._inventory = null;
+    this.inventory = null;
   }
 
   grapOrRelease() {
@@ -22,10 +22,10 @@ class Player {
         // if the player's inventory is empty --> call part.pickUp --> else part.recieve
 
         // call pickUp
-        if (!this._inventory) {
-          this._inventory = part.withdraw();
+        if (!this.inventory) {
+          this.inventory = part.withdraw();
         } else {
-          this._inventory = part.deposit(this._inventory);
+          this.inventory = part.deposit(this.inventory);
         }
         // put a item into the inventory depending on the field you are standing on
       }
@@ -34,13 +34,13 @@ class Player {
 
   draw() {
     push();
-    this.activeImage = !this._inventory
+    this.activeImage = !this.inventory
       ? this.img[this.direction][0]
       : this.img[this.direction][1];
     image(
       this.activeImage,
-      this._posX,
-      this._posY,
+      this.posX,
+      this.posY,
       this.activeImage.width * this.scale,
       this.activeImage.height * this.scale,
     );
@@ -66,10 +66,10 @@ class Player {
     // [[x0, x1],[y0, y1]]
 
     if (
-      this._posX > partCor[0][1] ||
-      this._posX < partCor[0][0] ||
-      this._posY > partCor[1][1] ||
-      this._posY < partCor[1][0]
+      this.posX > partCor[0][1] ||
+      this.posX < partCor[0][0] ||
+      this.posY > partCor[1][1] ||
+      this.posY < partCor[1][0]
     ) {
       return false;
     } else {
@@ -80,8 +80,8 @@ class Player {
   move(direction) {
     //array [x, y] +/-
 
-    this._posY += this._speed * direction[1];
-    this._posX += this._speed * direction[0];
+    this.posY += this.speed * direction[1];
+    this.posX += this.speed * direction[0];
     // console.log('move');
   }
 }

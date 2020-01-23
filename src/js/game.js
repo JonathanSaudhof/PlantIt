@@ -13,6 +13,18 @@ class Game {
     this.queueItemList = [
       {
         id: 1,
+        name: 'ketchup',
+        ingredients: [{ product: 'Seed', type: 'tomato' }],
+        timeLeft: 60,
+      },
+      {
+        id: 1,
+        name: 'cooked-tomato',
+        ingredients: [{ product: 'Seed', type: 'tomato' }],
+        timeLeft: 60,
+      },
+      {
+        id: 1,
         name: 'tomato',
         ingredients: [{ product: 'Seed', type: 'tomato' }],
         timeLeft: 60,
@@ -32,10 +44,17 @@ class Game {
       this.player2 = new Player(); // add player character and Name
     }
 
-    this.parts[0] = new Field(5, 5);
-    this.parts[1] = new Field(8, 5);
-    this.parts[2] = new Stock(1, 2, 'tomato');
-    this.parts[3] = new Shop(18, 5, 2);
+    this.parts[0] = new Field(4, 3);
+    this.parts[1] = new Field(4, 5);
+    this.parts[2] = new Field(6, 5);
+    this.parts[3] = new Field(6, 3);
+    this.parts[4] = new Stock(1, 2, 'tomato');
+    this.parts[5] = new Stock(1, 4, 'apple');
+    this.parts[6] = new Stock(1, 6, 'onion');
+    this.parts[7] = new Shop(18, 5, 2);
+    this.parts[8] = new Processor('stove', 10, 1);
+    this.parts[10] = new Processor('stove', 12, 1);
+    this.parts[9] = new Processor('mixer', 10, 3);
   }
 
   setup() {
