@@ -10,18 +10,22 @@ class Game {
     this.parts = [];
     this.cols = 20;
     this.rows = 10;
+    this.score = 0;
     this.queueItemList = [
       {
         id: 1,
         itemName: 'product-ketchup',
+        score: 500,
       },
       {
         id: 2,
         itemName: 'intermediate-tomato',
+        score: 100,
       },
       {
         id: 3,
-        itemName: 'tomato',
+        itemName: 'fruit-tomato',
+        score: 50,
       },
     ];
   }
@@ -58,21 +62,21 @@ class Game {
     rectMode(CENTER);
   }
 
-  countDown() {}
-
   createOrder() {
     //every 30s a Queueitem is randomly created
   }
   drawQueue() {
+    let queueStr = '';
+
     this.queueItemList.forEach((item) => {
-      if (!document.getElementById(item.id.toString())) {
-        const newItem = document.createElement('item');
-        newItem.id = item.id;
-        // console.log(item);
-        newItem.innerHTML = `<img src="assets/products/${item.itemName}.png" >`;
-        document.querySelector('queue').appendChild(newItem);
-      }
+      queueStr += `<item id="${item.id}"><img src="assets/products/${item.itemName}.png" ></item>`;
     });
+    document.querySelector('queue').innerHTML = queueStr;
+  }
+
+  drawScore() {
+    let scoreStr = `Score: ${this.score}`;
+    document.querySelector('score').innerHTML = scoreStr;
   }
 
   drawTime() {}
@@ -85,6 +89,7 @@ class Game {
     }
     this.parts.forEach((part) => part.draw());
     this.drawQueue();
+    this.drawScore();
     this.player1.draw();
   }
 }

@@ -72,7 +72,7 @@ class Stock extends Parts {
       empty: loadImage(`assets/parts/seed-stock-plain-empty.png`),
       full: loadImage(`assets/parts/seed-stock-plain-full.png`),
     };
-    this.imgTop = loadImage(`assets/products/${type}.png`);
+    this.imgTop = loadImage(`assets/products/fruit-${type}.png`);
     this.activeImage = this.img.empty;
     this.processTime = processorData.stock.processTime; // TODO: exclude to object
     this.acceptedProducts = processorData.stock.acceptedProducts;
@@ -104,7 +104,7 @@ class Stock extends Parts {
     }
 
     super.draw();
-    image(this.imgTop, this.posX + 10, this.posY, 16, 16);
+    image(this.imgTop, this.posX + 10, this.posY + 3, 16, 16);
     this.reload();
   }
 }
@@ -143,7 +143,7 @@ class Field extends Parts {
     if (this.inventory.amount === 1 && this.isGrowing === true) {
       // console.log('stop growing');
       this.imgTop =
-        loadImage(`assets/products/${this.inventory.type}.png`) || '';
+        loadImage(`assets/products/fruit-${this.inventory.type}.png`) || '';
       this.isGrowing = false;
     }
   }
@@ -354,15 +354,19 @@ class Shop extends Parts {
       itemStr = item.category + '-' + item.type;
     }
 
-    //if item Str is in Array ? Than  add  100 to hight score
+    if (itemStr === 'product-trash') {
+      game.score -= 100;
+    }
 
-    if (itemStr)
-      if (this.inventory.length > 0) {
-        this.inventory.forEach((item) => {});
-        game.queueItemList.forEach((item) => {
-          item.name = this.inventory.product;
-        });
+    for (let item = 0; item < game.queueItemList.length; item++) {
+      console.log(itemStr, game.queueItemList[item].itemName);
+      if (itemStr == game.queueItemList[item].itemName) {
+        console.log('found');
+        game.score += game.queueItemList[item].score;
+        game.queueItemList.splice(item, 1);
+        break;
       }
+    }
   }
 
   gatekeeper(item) {
@@ -375,6 +379,5 @@ class Shop extends Parts {
 
   draw() {
     super.draw();
-    this.scored();
   }
 }
