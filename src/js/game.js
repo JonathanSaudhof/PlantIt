@@ -79,7 +79,13 @@ class Game {
     document.querySelector('score').innerHTML = scoreStr;
   }
 
-  drawTime() {}
+  drawTime() {
+
+    this.duration
+    document.querySelector('time').innerHTML = `${this.duration % 60}:{}`;
+    
+
+  }
 
   draw() {
     this.world.drawWorld();
