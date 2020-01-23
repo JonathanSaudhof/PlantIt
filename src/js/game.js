@@ -1,9 +1,9 @@
 class Game {
-  constructor() {
+  constructor(name1, name2) {
     // console.log('Game constructor');
     this.playerList = [];
-    this.player1Name = 'Player1'; // TODO: Has to be set from outside (UI)
-    this.player2Name = 'Player2'; // TODO: Has to be set from outside (UI)
+    this.player1Name = name1; // TODO: Has to be set from outside (UI)
+    this.player2Name = name2; // TODO: Has to be set from outside (UI)
     this.multiplayer = false;
     //Duration of a Game in Seconds 5 * 60
     this.duration = 300; // how many time for the whole game
@@ -13,7 +13,7 @@ class Game {
     this.queueItemList = [
       {
         id: 1,
-        itemName: 'ketchup',
+        itemName: 'product-ketchup',
       },
       {
         id: 2,
@@ -48,7 +48,7 @@ class Game {
     this.parts[7] = new Shop(18, 5, 2);
     this.parts[8] = new Processor('stove', 10, 1);
     this.parts[10] = new Processor('stove', 12, 1);
-    this.parts[9] = new Combiner('mixer', 8, 5);
+    this.parts[9] = new Combiner('mixer', 14, 1);
     // this.parts[11] = new Trash(16, 1);
   }
 

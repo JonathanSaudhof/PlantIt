@@ -232,6 +232,7 @@ class Combiner extends Parts {
     this.isProcessing = false;
     this.isReady = false;
     this.inventory = [];
+    this.type = 'trash';
   }
 
   gatekeeper(item) {
@@ -251,7 +252,7 @@ class Combiner extends Parts {
     if (this.gatekeeper(item) && this.inventory.length < this.inventoryMax) {
       console.log('passed gate keeper');
 
-      this.inventory.push({ category: item.delivery, type: item.type });
+      this.inventory.push(`${item.category}-${item.type}`);
       return null;
     }
     return item;
@@ -259,8 +260,12 @@ class Combiner extends Parts {
 
   withdraw() {
     // if something is in the inventory
-    if (this.type != '') {
-      this.type = '';
+
+    if (this.isReady) {
+      this.inventory = [];
+      this.isReady = false;
+      console.log('is Ready false?', this.isReady);
+      this.imgTop = '';
       return {
         category: this.delivery,
         type: this.type,
@@ -279,62 +284,93 @@ class Combiner extends Parts {
 
       console.log('starts to process');
       // console.log(this.inventory.length === 0.25, this.isProcessing === false);
-      for (let counter = 1; counter <= 3; counter++) {
-        setTimeout(() => {
-          this.makeProduct();
-        }, (this.processTime / 3) * counter * 1000);
-      }
+
+      setTimeout(() => {
+        this.isProcessing = false;
+        this.makeProduct();
+      }, this.processTime * 1000);
     }
     //
   }
 
   makeProduct() {
     //set image and type
-    this.isProcessing = false;
+    const invTemp = this.inventory
+      .slice()
+      .sort()
+      .join();
+
+    for (var key in recieps) {
+      let tmpKey = recieps[key]
+        .slice()
+        .sort()
+        .join();
+      console.log(tmpKey, invTemp);
+      if (tmpKey === invTemp) {
+        this.type = key;
+      }
+    }
+
+    this.imgTop = loadImage(`assets/products/product-${this.type}.png`);
+
     this.isReady = true;
-    
-    this.type = this.checkRecipes(){};
-    // this.activeImage = loadImage(
-    //   `assets/products/${this.delivery}-${this.type}.png`,
-    // );
-    // this.inventory = [];
-    
+    console.log('is Ready true', this.isReady);
   }
 
   draw() {
     this.activeImage = this.img[this.inventory.length];
+
     this.process();
     super.draw();
+
+    if (this.imgTop && this.isReady) {
+      fill(color(255, 255, 255));
+      rect(this.posX, this.posY, 50, 50);
+      image(this.imgTop, this.posX, this.posY);
+    }
   }
 }
 class Shop extends Parts {
   constructor(posX, posY, scale) {
     super(posX, posY, scale, 'score');
     this.activeImage = loadImage('assets/parts/shop-animated.gif');
-    this.acceptedProducts = ['fruit', 'cooked', 'product'];
+    this.acceptedProducts = ['fruit', 'intermediate', 'product'];
     this.inventory = [];
   }
 
   deposit(item) {
-    if (this.gatekeeper(item) && this.inventory.length === 0) {
-      this.inventory.push({
-        category: item.product,
-        type: item.type,
-        amount: 1,
-      });
+    console.log('try to deposit:', item);
+    if (this.gatekeeper(item)) {
+      this.scored(item);
       return null;
     }
 
     return item;
   }
 
-  scored() {
-    if (this.inventory) {
-      this.inventory.forEach((item) => {});
-      game.queueItemList.forEach((item) => {
-        item.name = this.inventory.product;
-      });
+  scored(item) {
+    let itemStr;
+    if (item) {
+      itemStr = item.category + '-' + item.type;
     }
+
+    //if item Str is in Array ? Than  add  100 to hight score
+
+    if (itemStr)
+      if (this.inventory.length > 0) {
+        this.inventory.forEach((item) => {});
+        game.queueItemList.forEach((item) => {
+          item.name = this.inventory.product;
+        });
+      }
+  }
+
+  gatekeeper(item) {
+    if (this.acceptedProducts.length === 0 || !item) return false;
+    console.log(item, this.acceptedProducts);
+
+    // TODO: check : if inventory.amount < inventoryMax
+    return this.acceptedProducts.includes(`${item.category}`);
   }
 
   draw() {

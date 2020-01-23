@@ -23,7 +23,7 @@ const processorData = {
 
   combiner: {
     delivery: 'product',
-    acceptedProducts: ['cooked', 'fruit'],
+    acceptedProducts: ['intermediate', 'fruit'],
     processTime: 2,
     inventoryMax: 3,
   },
@@ -32,14 +32,6 @@ const processorData = {
 // for the mixer ( combiner )
 const recieps = {
   ketchup: ['intermediate-tomato', 'intermediate-apple', 'intermediate-onion'],
-  applePuree: [
-    'intermediate-apple',
-    'intermediate-apple',
-    'intermediate-apple',
-  ],
-  tomatoPuree: [
-    'intermediate-tomato',
-    'intermediate-tomato',
-    'intermediate-tomato',
-  ],
+  applePuree: ['fruit-apple', 'fruit-apple', 'fruit-apple'],
+  tomatoPuree: ['fruit-tomato', 'fruit-tomato', 'fruit-tomato'],
 };
