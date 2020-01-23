@@ -54,7 +54,7 @@ class Game {
     this.parts[7] = new Shop(18, 5, 2);
     this.parts[8] = new Processor('stove', 10, 1);
     this.parts[10] = new Processor('stove', 12, 1);
-    this.parts[9] = new Processor('mixer', 10, 3);
+    this.parts[9] = new Combiner('mixer', 10, 3);
   }
 
   setup() {
