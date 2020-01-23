@@ -113,13 +113,18 @@ gameMen queue {
 gameMen queue item {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   width: 20%;
   min-width: 60px;
   height: 100%;
   background-color: wheat;
   border: 3px solid black;
   margin-right: 1%;
+}
+gameMen queue item img {
+  height: auto;
+  width: 60%;
 }
 
 gameMen score,

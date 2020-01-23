@@ -1,5 +1,5 @@
 class Player {
-  constructor(posX = 25, posY = 25) {
+  constructor(col, row) {
     // console.log('Player Constructor');
     this.img = {
       down: [
@@ -8,8 +8,8 @@ class Player {
       ],
     };
     this._activeImage = this.img.down;
-    this.posX = posX;
-    this.posY = posY;
+    this.posX = col * SQUARE_SIZE + SQUARE_SIZE / 2;
+    this.posY = row * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.direction = 'down';
     this.speed = 10;
     this.scale = 1.5;

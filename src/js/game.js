@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    console.log('Game constructor');
+    // console.log('Game constructor');
     this.playerList = [];
     this.player1Name = 'Player1'; // TODO: Has to be set from outside (UI)
     this.player2Name = 'Player2'; // TODO: Has to be set from outside (UI)
@@ -13,21 +13,15 @@ class Game {
     this.queueItemList = [
       {
         id: 1,
-        name: 'ketchup',
-        ingredients: [{ product: 'Seed', type: 'tomato' }],
-        timeLeft: 60,
+        itemName: 'ketchup',
       },
       {
-        id: 1,
-        name: 'cooked-tomato',
-        ingredients: [{ product: 'Seed', type: 'tomato' }],
-        timeLeft: 60,
+        id: 2,
+        itemName: 'intermediate-tomato',
       },
       {
-        id: 1,
-        name: 'tomato',
-        ingredients: [{ product: 'Seed', type: 'tomato' }],
-        timeLeft: 60,
+        id: 3,
+        itemName: 'tomato',
       },
     ];
   }
@@ -38,10 +32,10 @@ class Game {
     // TODO What if the parts are out of the canvas
 
     this.world = new World(width / SQUARE_SIZE, height / SQUARE_SIZE);
-    this.player1 = new Player(); // add player character and Name
+    this.player1 = new Player(9, 8); // add player character and Name
 
     if (this.multiplayer) {
-      this.player2 = new Player(); // add player character and Name
+      this.player2 = new Player(10, 8); // add player character and Name
     }
 
     this.parts[0] = new Field(4, 3);
@@ -54,11 +48,12 @@ class Game {
     this.parts[7] = new Shop(18, 5, 2);
     this.parts[8] = new Processor('stove', 10, 1);
     this.parts[10] = new Processor('stove', 12, 1);
-    this.parts[9] = new Combiner('mixer', 10, 3);
+    this.parts[9] = new Combiner('mixer', 8, 5);
+    // this.parts[11] = new Trash(16, 1);
   }
 
   setup() {
-    console.log('Setup');
+    // console.log('Setup');
     angleMode(DEGREES);
     rectMode(CENTER);
   }
@@ -73,7 +68,8 @@ class Game {
       if (!document.getElementById(item.id.toString())) {
         const newItem = document.createElement('item');
         newItem.id = item.id;
-        newItem.innerHTML = `<img src="assets/products/${item.name}.png`;
+        // console.log(item);
+        newItem.innerHTML = `<img src="assets/products/${item.itemName}.png" >`;
         document.querySelector('queue').appendChild(newItem);
       }
     });

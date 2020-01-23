@@ -223,74 +223,87 @@ class Combiner extends Parts {
       0: loadImage(`assets/parts/${name}-empty.png`),
       1: loadImage(`assets/parts/${name}-1.png`),
       2: loadImage(`assets/parts/${name}-2.png`),
-      active: loadImage(`assets/parts/${name}-active.gif`),
+      3: loadImage(`assets/parts/${name}-active.gif`),
     };
     this.activeImage = this.img.empty;
     this.inventoryMax = processorData.combiner.inventoryMax;
     this.processTime = processorData.combiner.processTime;
     this.acceptedProducts = processorData.combiner.acceptedProducts;
     this.isProcessing = false;
+    this.isReady = false;
+    this.inventory = [];
+  }
+
+  gatekeeper(item) {
+    if (this.acceptedProducts.length === 0 || !item) return false;
+
+    // TODO: check : if inventory.amount < inventoryMax
+    return (
+      this.inventory.length < this.inventoryMax &&
+      this.acceptedProducts.includes(`${item.category}`)
+    );
   }
 
   deposit(item) {
     // if item.category =
     // if inventory.amount < inventoryMax
-    console.log('combiner method');
-    console.log(this.gatekeeper(item));
+    console.log(item);
+    if (this.gatekeeper(item) && this.inventory.length < this.inventoryMax) {
+      console.log('passed gate keeper');
 
-    if (this.gatekeeper(item) && this.inventory.amount < this.inventoryMax) {
-      if (this.inventory.amount > 0 && item.type !== this.inventory.type) {
-        return item;
-      }
-
-      this.inventory = {
-        category: this.delivery,
-        type: item.type,
-        amount: 1,
-      };
-      this.type = item.type;
+      this.inventory.push({ category: item.delivery, type: item.type });
       return null;
     }
     return item;
   }
 
-  fitsToRecipe(intermediate){
-    // does the current inventory + the item what i like to add is part of a reciep
-    // loop all recieps
-    
+  withdraw() {
+    // if something is in the inventory
+    if (this.type != '') {
+      this.type = '';
+      return {
+        category: this.delivery,
+        type: this.type,
+        amount: 1,
+      };
+    }
   }
 
   process() {
     if (
-      this.inventory.amount === this.inventoryMax &&
-      this.isProcessing === false
+      this.inventory.length === this.inventoryMax &&
+      this.isProcessing === false &&
+      !this.isReady
     ) {
       this.isProcessing = true;
-      this.activeImage = this.img.active;
-      // console.log('starts to process');
-      // console.log(this.inventory.amount === 0.25, this.isProcessing === false);
+
+      console.log('starts to process');
+      // console.log(this.inventory.length === 0.25, this.isProcessing === false);
       for (let counter = 1; counter <= 3; counter++) {
         setTimeout(() => {
-          this.inventory.amount += 0.25;
+          this.makeProduct();
         }, (this.processTime / 3) * counter * 1000);
       }
     }
     //
-    if (
-      this.inventory.amount === this.inventoryMax &&
-      this.isProcessing === true
-    ) {
-      // console.log('stop growing');
-      this.imgTop =
-        loadImage(
-          `assets/products/${this.delivery}-${this.inventory.type}.png`,
-        ) || '';
-      this.isProcessing = false;
-      this.activeImage = this.img.empty;
-    }
   }
+
+  makeProduct() {
+    //set image and type
+    this.isProcessing = false;
+    this.isReady = true;
+    
+    this.type = this.checkRecipes(){};
+    // this.activeImage = loadImage(
+    //   `assets/products/${this.delivery}-${this.type}.png`,
+    // );
+    // this.inventory = [];
+    
+  }
+
   draw() {
-    this.activeImage = this.img[this.inventory.amount];
+    this.activeImage = this.img[this.inventory.length];
+    this.process();
     super.draw();
   }
 }

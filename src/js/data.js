@@ -31,7 +31,15 @@ const processorData = {
 
 // for the mixer ( combiner )
 const recieps = {
-  ketchup: ['cooked-tomato', 'cooked-apple', 'cooked-onion'],
-  applePuree: ['cooked-apple', 'cooked-apple', 'cooked-apple'],
-  tomatoPuree: ['cooked-tomato', 'cooked-tomato', 'cooked-tomato'],
+  ketchup: ['intermediate-tomato', 'intermediate-apple', 'intermediate-onion'],
+  applePuree: [
+    'intermediate-apple',
+    'intermediate-apple',
+    'intermediate-apple',
+  ],
+  tomatoPuree: [
+    'intermediate-tomato',
+    'intermediate-tomato',
+    'intermediate-tomato',
+  ],
 };
