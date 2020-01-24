@@ -11,20 +11,40 @@ class Game {
     this.cols = 20;
     this.rows = 10;
     this.score = 0;
+    this.queueItemListChangedLength = 0;
     this.queueItemList = [
       {
         id: 1,
         itemName: 'product-ketchup',
+        ingredients: [
+          'intermediate-tomato',
+          'intermediate-apple',
+          'intermediate-onion',
+        ],
         score: 500,
       },
       {
         id: 2,
-        itemName: 'intermediate-tomato',
+        itemName: 'product-tomatoPuree',
+        ingredients: ['fruit-tomato', 'fruit-tomato', 'fruit-tomato'],
         score: 100,
       },
       {
         id: 3,
+        itemName: 'product-applePuree',
+        ingredients: ['fruit-apple', 'fruit-apple', 'fruit-apple'],
+        score: 100,
+      },
+      {
+        id: 4,
+        itemName: 'intermediate-tomato',
+        ingredients: ['fruit-tomato'],
+        score: 100,
+      },
+      {
+        id: 5,
         itemName: 'fruit-tomato',
+        ingredients: ['seed-tomato'],
         score: 50,
       },
     ];
@@ -66,12 +86,22 @@ class Game {
     //every 30s a Queueitem is randomly created
   }
   drawQueue() {
-    let queueStr = '';
+    if (this.queueItemListChangedLength !== this.queueItemList.length) {
+      let queueStr = '';
 
-    this.queueItemList.forEach((item) => {
-      queueStr += `<item id="${item.id}"><img src="assets/products/${item.itemName}.png" ></item>`;
-    });
-    document.querySelector('queue').innerHTML = queueStr;
+      this.queueItemList.forEach((item) => {
+        let ingredientsStr = '';
+
+        item.ingredients.forEach((ingredient) => {
+          ingredientsStr += `<img src="assets/products/${ingredient}.png" >`;
+        });
+
+        queueStr += `<item id="${item.id}"><img src="assets/products/${item.itemName}.png" ><div class="hint">${ingredientsStr} </div></item>
+        `;
+      });
+      document.querySelector('queue').innerHTML = queueStr;
+      this.queueItemListChangedLength = this.queueItemList.length;
+    }
   }
 
   drawScore() {
@@ -80,14 +110,15 @@ class Game {
   }
 
   drawTime() {
-
-    this.duration
-    document.querySelector('time').innerHTML = `${this.duration % 60}:{}`;
-    
-
+    this.duration;
+    document.querySelector('time').innerHTML = `Seconds left: ${this.duration}`;
   }
 
   draw() {
+    if (frameCount % 10 === 0) {
+      this.duration -= 1;
+    }
+    console.log(frameCount % 10, frameCount);
     this.world.drawWorld();
 
     if (this.multiplayer) {
@@ -96,6 +127,7 @@ class Game {
     this.parts.forEach((part) => part.draw());
     this.drawQueue();
     this.drawScore();
+    this.drawTime();
     this.player1.draw();
   }
 }

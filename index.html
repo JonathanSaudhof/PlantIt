@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="src/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto+Condensed&display=swap" rel="stylesheet">
 
     <title>Document</title>
   </head>
   <body>
+    <div class="background"></div>
     <!-- UI Starting-Screen -->
     <div class="starting-screen show">
       <div class="box" id="player1">
@@ -28,7 +30,7 @@
     </div>
     <!-- UI Menu (see if needed) -->
     <div class="menu" >
-      <div class="name"></div>
+      <div class="logo">PlantIt</div>      <div class="name"></div>
       <button class="pause" type="button" onclick="pause()">Pause</button>
     </div>
     <gameMen>
@@ -36,7 +38,7 @@
        
       </queue>
       <score></score>
-      <time class="blinking-slow ">Time: 0:00</time>
+      <time>Time: 0:00</time>
     </gameMen>
     
     <!-- Game is displayed here-->
