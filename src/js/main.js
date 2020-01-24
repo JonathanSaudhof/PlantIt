@@ -69,7 +69,7 @@ function start() {
 function pause(event) {
   console.log('pause', event);
   gameRunning = !gameRunning;
-  if ($pause.innerHTML === 'Pause') {
+  if (!gameRunning) {
     $pause.innerHTML = 'Play';
   } else {
     $pause.innerHTML = 'Pause';
