@@ -6,7 +6,7 @@ class Game {
     this.player2Name = name2; // TODO: Has to be set from outside (UI)
     this.multiplayer = false;
     //Duration of a Game in Seconds 5 * 60
-    this.duration = 300; // how many time for the whole game
+    this.duration = 180; // how many time for the whole game
     this.parts = [];
     this.cols = 20;
     this.rows = 10;
@@ -135,7 +135,7 @@ class Game {
     this.drawScore();
     this.drawTime();
     this.player1.draw();
-    if (this.duration <= 0) {
+    if (this.duration <= 0 || this.queueItemList.length === 0) {
       document.querySelector('.end-screen').classList.add('show');
     }
   }

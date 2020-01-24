@@ -11,7 +11,7 @@ class Player {
     this.posX = col * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.posY = row * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.direction = 'down';
-    this.speed = 10;
+    this.speed = 12;
     this.scale = 1.5;
     this.inventory = null;
   }

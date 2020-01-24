@@ -17,6 +17,7 @@ let gameRunning = false;
 // new Game Object
 const game = new Game();
 
+
 //TODO:
 
 /* 
@@ -52,6 +53,7 @@ function setup() {
 function draw() {
   if (gameRunning) {
     // console.log('GAMELOOP RUNNING');
+    
     game.draw();
     singleplayerInputs();
     if (multiplayer) {

@@ -17,14 +17,14 @@ const processorData = {
   processor: {
     delivery: 'intermediate',
     acceptedProducts: ['fruit'],
-    processTime: 2,
+    processTime: 3,
     inventoryMax: 1,
   },
 
   combiner: {
     delivery: 'product',
     acceptedProducts: ['intermediate', 'fruit'],
-    processTime: 2,
+    processTime: 3,
     inventoryMax: 3,
   },
 };

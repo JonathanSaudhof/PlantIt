@@ -96,14 +96,15 @@ canvas {
 .end-screen > div {
   display: flex;
   align-items: center;
-
+  height: 100%;
   width: 100%;
 }
 
-.starting-screen > div > img,
-.end-screen > div > img {
-  width: auto;
+.starting-screen > div .left,
+.end-screen > div .left {
+  flex: 1 1 40%;
   height: 100%;
+  background-image: url('/assets/background/trees-and-bushes.png');
 }
 
 .starting-screen.show,
@@ -153,12 +154,12 @@ gameMen queue item {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 5rem;
   min-width: 60px;
   height: 100%;
   background-color: wheat;
   border: 3px solid black;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   margin-right: 0.3rem;
   padding: 0.1rem;
 }
