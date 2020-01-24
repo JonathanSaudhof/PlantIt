@@ -28,10 +28,12 @@ body {
 
 h1 {
   font-size: 2rem;
+  font-family: 'Pacifico', cursive;
 }
 
 h2 {
   font-size: 1.5rem;
+  font-family: 'Pacifico', cursive;
 }
 button {
   padding: 0.5rem;
@@ -76,32 +78,43 @@ canvas {
 .starting-screen {
   position: fixed;
   display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
   background-color: darkolivegreen;
+  z-index: 99;
+}
+.starting-screen > div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.starting-screen > div > img {
+  width: auto;
+  height: 100%;
 }
 
 .starting-screen.show {
   display: flex;
 }
 
-.starting-screen .box {
+.starting-screen div .box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20%;
-  height: 50%;
+  flex: 1 1 70%;
+  height: auto;
   color: white;
   background-color: olive;
 }
 .starting-screen .box > input,
 .starting-screen .box > button {
-  width: 80%;
+  width: 10rem;
   height: 50px;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 .starting-screen .box > button {
 }
@@ -109,7 +122,7 @@ gameMen {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  z-index: 99;
+  z-index: 80;
   height: 90px;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.6);

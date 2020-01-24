@@ -105,13 +105,15 @@ class Game {
   }
 
   drawScore() {
-    let scoreStr = `Score: ${this.score}`;
+    let scoreStr = `<h2>Score: ${this.score}</h2>`;
     document.querySelector('score').innerHTML = scoreStr;
   }
 
   drawTime() {
     this.duration;
-    document.querySelector('time').innerHTML = `Seconds left: ${this.duration}`;
+    document.querySelector(
+      'time',
+    ).innerHTML = `<h2>Seconds left: ${this.duration}</h2>`;
   }
 
   draw() {

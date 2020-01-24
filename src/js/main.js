@@ -9,8 +9,9 @@ const $pause = document.querySelector('button.pause');
 // Name of the Player
 
 let playersName = 'Test';
-const inProduction = false;
+const inProduction = true;
 let multiplayer = false;
+let gameRunning = false;
 
 // Game
 // new Game Object
@@ -29,20 +30,6 @@ const game = new Game();
 
 if (inProduction) {
   // Production Code
-  let gameRunning = false;
-  $createGameBtn.onclick = function() {
-    if (!$playersNameInput.value) {
-      alert('Please Type in a name!');
-    } else {
-      //TODO: Implement Loading Screen
-      $startingScreen.classList.remove('show');
-      playersName = $playersNameInput.value;
-
-      gameRunning = true;
-      //set Name in Menu in the actual game
-      $nameField.innerHTML = `Hello, ${playersName}! Let go farming!`;
-    }
-  };
 } else {
   // Development
   $nameField.innerHTML = `Hello, ${playersName}! Let go farming!`;
@@ -74,6 +61,10 @@ function draw() {
 }
 
 // Input Handling
+function start() {
+  $startingScreen.classList.remove('show');
+  pause();
+}
 
 function pause(event) {
   console.log('pause', event);
@@ -176,6 +167,8 @@ function multiplayerInputs() {
   }
   // Pause
   if (keyCode === 16) {
+    $startingScreen.classList.remove('show');
+
     // move right
     pause();
   }

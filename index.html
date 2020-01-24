@@ -13,24 +13,24 @@
     <div class="background"></div>
     <!-- UI Starting-Screen -->
     <div class="starting-screen show">
-      <div class="box" id="player1">
-        <h2 id="box-headline">Play Mode</h2>
-        <button type="button" onclick="createGame(event)" id="create-game-btn"> Single Player</button>
-        <button type="button" onclick="createGame(event)" id="create-game-btn"> Multiplayer </button>
+      <div>
+        <img src="assets/background/trees-and-bushes.png">
+         <div class="box" id="player1">
+        
+           <h1 style="font-size: 4rem; color: white"> PlantIt</h1>
+        <button type="button" onclick="start()" id="create-game-btn"> Let's go </button>
       </div>
-      <div class="box" id="player1">
-        <h2 id="box-headline">Go Farming</h2>
-        <input type="text" name="playersName" id="playser-name-input" placeholder="Please type in your name">
-        <label for="character1" class=""><img src="assets/player/farmer-pixilart.png"></label>
-        <input type="radio" name="characterChoice" id="character1" />
-        <label for="character1" class=""><img src="assets/player/farmer-pixilart.png"></label>
-        <input type="radio" name="characterChoice" id="character1" />
-        <button type="button" onclick="createGame(event)" id="create-game-btn"> Let's go </button>
+        
+
       </div>
+     
+  
+     
     </div>
     <!-- UI Menu (see if needed) -->
     <div class="menu" >
-      <div class="logo">PlantIt</div>      <div class="name"></div>
+      
+      <div class="logo"><h2>PlantIt</h2></div>      <div class="name"></div>
       <button class="pause" type="button" onclick="pause()">Pause</button>
     </div>
     <gameMen>
