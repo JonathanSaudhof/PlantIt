@@ -311,7 +311,9 @@ class Combiner extends Parts {
       }
     }
 
-    this.imgTop = loadImage(`assets/products/product-${this.type}.png`);
+    this.imgTop = loadImage(
+      `assets/products/product-${this.type.toLowerCase()}.png`,
+    );
 
     this.isReady = true;
     console.log('is Ready true', this.isReady);

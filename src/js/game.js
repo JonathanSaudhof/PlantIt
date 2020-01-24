@@ -96,7 +96,9 @@ class Game {
           ingredientsStr += `<img src="assets/products/${ingredient}.png" >`;
         });
 
-        queueStr += `<item id="${item.id}"><img src="assets/products/${item.itemName}.png" ><div class="hint">${ingredientsStr} </div></item>
+        queueStr += `<item id="${
+          item.id
+        }"><img src="assets/products/${item.itemName.toLowerCase()}.png" ><div class="hint">${ingredientsStr} </div></item>
         `;
       });
       document.querySelector('queue').innerHTML = queueStr;
