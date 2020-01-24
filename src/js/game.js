@@ -112,7 +112,7 @@ class Game {
   }
 
   drawTime() {
-    if (this.duration < 100) {
+    if (this.duration < 30) {
       document.querySelector('time').classList.add('blinking-slow');
     }
     document.querySelector(
