@@ -75,7 +75,8 @@ canvas {
   z-index: 0;
 }
 
-.starting-screen {
+.starting-screen,
+.end-screen {
   position: fixed;
   display: none;
   flex-direction: column;
@@ -84,29 +85,40 @@ canvas {
   height: 100%;
   width: 100%;
   background-color: darkolivegreen;
+}
+.starting-screen {
+  z-index: 100;
+}
+.end-screen {
   z-index: 99;
 }
-.starting-screen > div {
+.starting-screen > div,
+.end-screen > div {
   display: flex;
   align-items: center;
+
   width: 100%;
 }
-.starting-screen > div > img {
+
+.starting-screen > div > img,
+.end-screen > div > img {
   width: auto;
   height: 100%;
 }
 
-.starting-screen.show {
+.starting-screen.show,
+.end-screen.show {
   display: flex;
 }
 
-.starting-screen div .box {
+.starting-screen div .box,
+.end-screen div .box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1 1 70%;
-  height: auto;
+  height: 100%;
   color: white;
   background-color: olive;
 }

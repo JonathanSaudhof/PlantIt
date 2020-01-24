@@ -121,7 +121,7 @@ class Game {
   }
 
   draw() {
-    if (frameCount % 10 === 0) {
+    if (frameCount % 10 === 0 && this.duration > 0) {
       this.duration -= 1;
     }
     console.log(frameCount % 10, frameCount);
@@ -135,5 +135,8 @@ class Game {
     this.drawScore();
     this.drawTime();
     this.player1.draw();
+    if (this.duration <= 0) {
+      document.querySelector('.end-screen').classList.add('show');
+    }
   }
 }
