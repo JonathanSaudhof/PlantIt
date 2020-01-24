@@ -83,6 +83,7 @@ canvas {
   height: 100%;
   margin: auto;
   z-index: 0;
+  zoom: 1.5;
 }
 
 .starting-screen,
