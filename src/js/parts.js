@@ -122,8 +122,8 @@ class Field extends Parts {
     this.activeImage = this.img[0];
     this.inventoryMax = processorData.field.inventoryMax;
     this.isGrowing = false;
-    this.acceptedProducts = ['Seed'];
-    this.growTime = 2;
+    this.acceptedProducts = processorData.field.acceptedProducts;
+    this.growTime = processorData.field.processTime;
     this.progress = 0;
   }
 

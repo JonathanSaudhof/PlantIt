@@ -10,7 +10,7 @@ const processorData = {
   field: {
     delivery: 'Fruit',
     acceptedProducts: ['Seed'],
-    processTime: 2,
+    processTime: 5,
     inventoryMax: 1,
   },
 
