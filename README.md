@@ -23,7 +23,7 @@ Let's plant the needed fruits and vegetables to deliver the asked products.
 Go and PlantIt!
 
 ```
-1. You already know what to produce! Now, grab some seeds!
+1. You already know what to produce. Now, grab some seeds!
 2. Go to the field and plant them!
 3. When they are ready you can take the fruits / vegetables and  either 
    cook them on the stove or combine them in the mixer.
