@@ -25,6 +25,7 @@ Go and PlantIt!
 ```
 1. Grap some seeds
 2. Go to the field and plant it?
-3. When ready you can cook the fruits / vegetables and the either cook it on the stove or combine it in the mixer.
+3. When ready you can cook the fruits / vegetables and the either 
+   cook it on the stove or combine it in the mixer.
 4. At the end you need to deliver your product to the conveyor to get your points.
 ```
