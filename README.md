@@ -13,7 +13,7 @@ Follow the [Link](https://jonathansaudhof.github.io/PlantIt/) to start.
 
 ```
 Arrow keys: Movement
-Space: grap and release
+Space: grab and release
 ```
 
 ## Game Goal & How to play
@@ -23,9 +23,9 @@ Let's plant the needed fruits and vegetables to deliver the asked products.
 Go and PlantIt!
 
 ```
-1. Grap some seeds
-2. Go to the field and plant it?
-3. When ready you can cook the fruits / vegetables and the either 
-   cook it on the stove or combine it in the mixer.
+1. You already know what to produce! Now, grab some seeds!
+2. Go to the field and plant them!
+3. When they are ready you can take the fruits / vegetables and  either 
+   cook them on the stove or combine them in the mixer.
 4. At the end you need to deliver your product to the conveyor to get your points.
 ```
