@@ -15,36 +15,36 @@ class Game {
     this.queueItemList = [
       {
         id: 1,
-        itemName: 'product-ketchup',
+        itemName: "product-ketchup",
         ingredients: [
-          'intermediate-tomato',
-          'intermediate-apple',
-          'intermediate-onion',
+          "intermediate-tomato",
+          "intermediate-apple",
+          "intermediate-onion",
         ],
         score: 500,
       },
       {
         id: 2,
-        itemName: 'product-tomatoPuree',
-        ingredients: ['fruit-tomato', 'fruit-tomato', 'fruit-tomato'],
+        itemName: "product-tomatoPuree",
+        ingredients: ["fruit-tomato", "fruit-tomato", "fruit-tomato"],
         score: 100,
       },
       {
         id: 3,
-        itemName: 'product-applePuree',
-        ingredients: ['fruit-apple', 'fruit-apple', 'fruit-apple'],
+        itemName: "product-applePuree",
+        ingredients: ["fruit-apple", "fruit-apple", "fruit-apple"],
         score: 100,
       },
       {
         id: 4,
-        itemName: 'intermediate-tomato',
-        ingredients: ['fruit-tomato'],
+        itemName: "intermediate-tomato",
+        ingredients: ["fruit-tomato"],
         score: 100,
       },
       {
         id: 5,
-        itemName: 'fruit-tomato',
-        ingredients: ['seed-tomato'],
+        itemName: "fruit-tomato",
+        ingredients: ["seed-tomato"],
         score: 50,
       },
     ];
@@ -66,13 +66,13 @@ class Game {
     this.parts[1] = new Field(4, 5);
     this.parts[2] = new Field(6, 5);
     this.parts[3] = new Field(6, 3);
-    this.parts[4] = new Stock(1, 2, 'tomato');
-    this.parts[5] = new Stock(1, 4, 'apple');
-    this.parts[6] = new Stock(1, 6, 'onion');
+    this.parts[4] = new Stock(1, 2, "tomato");
+    this.parts[5] = new Stock(1, 4, "apple");
+    this.parts[6] = new Stock(1, 6, "onion");
     this.parts[7] = new Shop(18, 5, 2);
-    this.parts[8] = new Processor('stove', 10, 1);
-    this.parts[10] = new Processor('stove', 12, 1);
-    this.parts[9] = new Combiner('mixer', 14, 1);
+    this.parts[8] = new Processor("stove", 10, 1);
+    this.parts[10] = new Processor("stove", 12, 1);
+    this.parts[9] = new Combiner("mixer", 14, 1);
     // this.parts[11] = new Trash(16, 1);
   }
 
@@ -87,10 +87,10 @@ class Game {
   }
   drawQueue() {
     if (this.queueItemListChangedLength !== this.queueItemList.length) {
-      let queueStr = '';
+      let queueStr = "";
 
       this.queueItemList.forEach((item) => {
-        let ingredientsStr = '';
+        let ingredientsStr = "";
 
         item.ingredients.forEach((ingredient) => {
           ingredientsStr += `<img src="assets/products/${ingredient}.png" >`;
@@ -101,22 +101,22 @@ class Game {
         }"><img src="assets/products/${item.itemName.toLowerCase()}.png" ><div class="hint">${ingredientsStr} </div></item>
         `;
       });
-      document.querySelector('queue').innerHTML = queueStr;
+      document.querySelector("queue").innerHTML = queueStr;
       this.queueItemListChangedLength = this.queueItemList.length;
     }
   }
 
   drawScore() {
     let scoreStr = `<h2>Score: ${this.score}</h2>`;
-    document.querySelector('score').innerHTML = scoreStr;
+    document.querySelector("score").innerHTML = scoreStr;
   }
 
   drawTime() {
     if (this.duration < 30) {
-      document.querySelector('time').classList.add('blinking-slow');
+      document.querySelector("time").classList.add("blinking-slow");
     }
     document.querySelector(
-      'time',
+      "time",
     ).innerHTML = `<h2>Seconds left: ${this.duration}</h2>`;
   }
 
@@ -124,7 +124,7 @@ class Game {
     if (frameCount % 10 === 0 && this.duration > 0) {
       this.duration -= 1;
     }
-    console.log(frameCount % 10, frameCount);
+    // console.log(frameCount % 10, frameCount);
     this.world.drawWorld();
 
     if (this.multiplayer) {
@@ -136,7 +136,7 @@ class Game {
     this.drawTime();
     this.player1.draw();
     if (this.duration <= 0 || this.queueItemList.length === 0) {
-      document.querySelector('.end-screen').classList.add('show');
+      document.querySelector(".end-screen").classList.add("show");
     }
   }
 }

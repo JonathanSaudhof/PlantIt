@@ -3,14 +3,14 @@ class Player {
     // console.log('Player Constructor');
     this.img = {
       down: [
-        loadImage('assets/player/farmer-down.png'),
-        loadImage('assets/player/farmer-down-c.png'),
+        loadImage("assets/player/farmer-down.png"),
+        loadImage("assets/player/farmer-down-c.png"),
       ],
     };
     this._activeImage = this.img.down;
     this.posX = col * SQUARE_SIZE + SQUARE_SIZE / 2;
     this.posY = row * SQUARE_SIZE + SQUARE_SIZE / 2;
-    this.direction = 'down';
+    this.direction = "down";
     this.speed = 12;
     this.scale = 1.5;
     this.inventory = null;
@@ -20,7 +20,6 @@ class Player {
     game.parts.forEach((part) => {
       if (this.collides(part)) {
         // if the player's inventory is empty --> call part.pickUp --> else part.recieve
-
         // call pickUp
         if (!this.inventory) {
           this.inventory = part.withdraw();
@@ -51,7 +50,6 @@ class Player {
     // check if obj collides with self
     // self completely to the left || self completely to the right
     // [[x0, x1],[y0, y1]]
-
     // console.log(part);
     let partCor = [
       [
@@ -79,7 +77,6 @@ class Player {
 
   move(direction) {
     //array [x, y] +/-
-
     this.posY += this.speed * direction[1];
     this.posX += this.speed * direction[0];
     // console.log('move');

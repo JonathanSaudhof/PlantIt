@@ -1,22 +1,20 @@
-const $startingScreen = document.querySelector('.starting-screen');
-const $playersNameInput = document.getElementById('playser-name-input');
-const $createGameBtn = document.getElementById('create-game-btn');
-const $canvas = document.querySelector('div.canvas');
-const $nameField = document.querySelector('.menu .name');
-const $menu = document.querySelector('.menu');
-const $pause = document.querySelector('button.pause');
+const $startingScreen = document.querySelector(".starting-screen");
+const $playersNameInput = document.getElementById("playser-name-input");
+const $createGameBtn = document.getElementById("create-game-btn");
+const $canvas = document.querySelector("div.canvas");
+const $nameField = document.querySelector(".menu .name");
+const $menu = document.querySelector(".menu");
+const $pause = document.querySelector("button.pause");
 
 // Name of the Player
 
-let playersName = 'Test';
+let playersName = "Test";
 const inProduction = true;
-let multiplayer = false;
 let gameRunning = false;
 
 // Game
 // new Game Object
 const game = new Game();
-
 
 //TODO:
 
@@ -30,18 +28,17 @@ const game = new Game();
 */
 
 if (inProduction) {
-  // Production Code
 } else {
-  // Development
+  // for development purpose it removes the start-screen
   $nameField.innerHTML = `Hello, ${playersName}! Let go farming!`;
   gameRunning = true;
-  $startingScreen.classList.remove('show');
+  $startingScreen.classList.remove("show");
 }
 
 // --- > GAME SETUP AND LOOP
 
 function preload() {
-  console.log('PRELOAD');
+  console.log("PRELOAD");
 }
 
 function setup() {
@@ -53,28 +50,25 @@ function setup() {
 function draw() {
   if (gameRunning) {
     // console.log('GAMELOOP RUNNING');
-    
+
     game.draw();
     singleplayerInputs();
-    if (multiplayer) {
-      multiplayerInputs();
-    }
   }
 }
 
 // Input Handling
 function start() {
-  $startingScreen.classList.remove('show');
+  $startingScreen.classList.remove("show");
   pause();
 }
 
 function pause(event) {
-  console.log('pause', event);
+  console.log("pause", event);
   gameRunning = !gameRunning;
   if (!gameRunning) {
-    $pause.innerHTML = 'Play';
+    $pause.innerHTML = "Play";
   } else {
-    $pause.innerHTML = 'Pause';
+    $pause.innerHTML = "Pause";
   }
 
   //TODO: show pause popup
@@ -82,7 +76,6 @@ function pause(event) {
 
 function singleplayerInputs() {
   // Player 1
-
   if (keyIsDown(38)) {
     // move up
     game.player1.move([0, -1]);
@@ -169,7 +162,7 @@ function multiplayerInputs() {
   }
   // Pause
   if (keyCode === 16) {
-    $startingScreen.classList.remove('show');
+    $startingScreen.classList.remove("show");
 
     // move right
     pause();
